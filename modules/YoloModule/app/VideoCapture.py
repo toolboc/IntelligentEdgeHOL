@@ -288,9 +288,9 @@ class VideoCapture(object):
             Step-10 : Uncomment Start
             ***********************************************************'''
             # if self.inference:
-            #     self.yoloInference.runInference(frame, frameW, frameH, self.confidenceLevel, self.verbose)
+            #     self.yoloInference.runInference(frame, frameW, frameH, self.confidenceLevel)
             '''***********************************************************
-            Step-10 : Uncomment Start
+            Step-10 : Uncomment End
             ***********************************************************'''
 
             # Calculate FPS
