@@ -66,7 +66,7 @@ class VideoCapture(object):
         '''***********************************************************
         Step-10 : Uncomment Start
         ***********************************************************'''
-        # self.yoloInference = YoloInference(self.verbose, self.fontScale)
+        # self.yoloInference = YoloInference(self.fontScale)
         '''***********************************************************
         Step-10 : Uncomment End
         ***********************************************************'''
