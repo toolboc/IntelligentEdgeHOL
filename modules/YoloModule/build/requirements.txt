@@ -1,0 +1,6 @@
+azure-iothub-device-client~=1.4.3
+setuptools
+numpy
+requests
+opencv-contrib-python
+
