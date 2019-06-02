@@ -85,7 +85,10 @@ class VideoCapture(object):
 
     def __IsYoutube(self, videoPath):
         try:
-            return 'www.youtube.com' in videoPath.lower()
+            if 'www.youtube.com' in videoPath.lower() or 'youtu.be' in videoPath.lower():
+                return True
+            else:
+                return False
         except ValueError:
             return False
 
