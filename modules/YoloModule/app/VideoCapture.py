@@ -13,14 +13,9 @@ import ImageServer
 from ImageServer import ImageServer
 import VideoStream
 from VideoStream import VideoStream
-'''***********************************************************
-Step-10 : Uncomment Start
-***********************************************************'''
-# import YoloInference
-# from YoloInference import YoloInference
-'''***********************************************************
-Step-10 : Uncomment End
-***********************************************************'''
+
+import YoloInference
+from YoloInference import YoloInference
 
 class VideoCapture(object):
 
@@ -63,13 +58,8 @@ class VideoCapture(object):
 
         self.imageServer = ImageServer(80, self)
         self.imageServer.start()
-        '''***********************************************************
-        Step-10 : Uncomment Start
-        ***********************************************************'''
-        # self.yoloInference = YoloInference(self.fontScale)
-        '''***********************************************************
-        Step-10 : Uncomment End
-        ***********************************************************'''
+
+        self.yoloInference = YoloInference(self.fontScale)
 
     def __IsCaptureDev(self, videoPath):
         try: 
@@ -287,14 +277,8 @@ class VideoCapture(object):
                 frame = cv2.resize(frame, (self.videoW, self.videoH))
 
             # Run Object Detection
-            '''***********************************************************
-            Step-10 : Uncomment Start
-            ***********************************************************'''
-            # if self.inference:
-            #     self.yoloInference.runInference(frame, frameW, frameH, self.confidenceLevel)
-            '''***********************************************************
-            Step-10 : Uncomment End
-            ***********************************************************'''
+            if self.inference:
+                self.yoloInference.runInference(frame, frameW, frameH, self.confidenceLevel)
 
             # Calculate FPS
             timeElapsedInMs = (time.time() - tFrameStart) * 1000

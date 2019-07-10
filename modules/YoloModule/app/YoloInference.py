@@ -2,6 +2,8 @@
 from __future__ import division
 from __future__ import absolute_import
 
+from darknet import darknet
+
 import cv2
 #import cv2.cv as cv
 import numpy as np
@@ -11,6 +13,10 @@ import os
 yolocfg  = r'yolo/yolov3-tiny.cfg'
 yoloweight = r'yolo/yolov3-tiny.weights'
 classesFile = r'yolo/coco.names'
+dataFile = r'yolo/coco.data'
+
+encoding = 'utf-8'
+
 
 class YoloInference(object):
 
@@ -43,7 +49,7 @@ class YoloInference(object):
 
         # Read pre-trained model and config file
         print("   - Loading Model and Config")
-        self.net = cv2.dnn.readNetFromDarknet( yolocfg, yoloweight )
+        darknet.performDetect( configPath = yolocfg, weightPath = yoloweight, metaPath= dataFile, initOnly= True )
 
     def __get_output_layers(self, net):
         layerNames = net.getLayerNames()
@@ -59,8 +65,8 @@ class YoloInference(object):
             print("draw_rect h :" + str(h))
 
         label = '%.2f' % confidence
-        label = '%s:%s' % (self.classLabels[class_id], label)
-        color = self.colors[class_id]
+        label = '%s:%s' % (class_id, label)
+        color = self.colors[self.classLabels.index(class_id)]
 
         labelSize, baseLine = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, self.fontScale, self.fontThickness)
 
@@ -71,65 +77,30 @@ class YoloInference(object):
 
     def runInference(self, frame, frameW, frameH, confidenceLevel):
         try:
-            # Create input blob
-            blob = cv2.dnn.blobFromImage(frame, 1.0/255.0, (416, 416), (0,0,0), True, crop=False)
 
-            # Set input blob for the network
-            self.net.setInput(blob)
+            detections = darknet.detect(darknet.netMain, darknet.metaMain, frame, confidenceLevel)
 
-            # Run inference
-            outputs = self.net.forward(self.__get_output_layers(self.net))
+            for detection in detections:
+              
+                classLabel = detection[0]
+                classID = str(detection[0], encoding)
+                confidence = detection[1]
 
-            # Initialize arrays
-            boxes = []
-            confidences = []
-            classIDs = []
+                if confidence > confidenceLevel:
 
-            for output in outputs:
-                for detection in output:
-                    scores = detection[5:]
-                    classID = np.argmax(scores) 
-                    confidence = scores[classID]
-                    classLabel = self.classLabels[classID]
+                    if self.verbose:
+                        print( "Class Label : %s Confidence %f" % (classLabel, confidence))
 
-                    if confidence > confidenceLevel:
+                    bounds = detection[2]
+                    
+                    xEntent = int(bounds[2])
+                    yExtent = int(bounds[3])
+                    # Coordinates are around the center
+                    xCoord = int(bounds[0] - bounds[2]/2)
+                    yCoord = int(bounds[1] - bounds[3]/2)
 
-                        if self.verbose:
-                            print( "Class Label : %s Confidence %f" % (classLabel, confidence))
+                    self.__draw_rect(frame, classID, confidence, xCoord, yCoord, xCoord + xEntent, yCoord + yExtent)
 
-                        centerX = int(detection[0] * frameW)
-                        centerY = int(detection[1] * frameH)
-                        rectWidth  = int(detection[2] * frameW)
-                        rectHeight = int(detection[3] * frameH)
-
-                        left = int(max((centerX - (rectWidth  / 2)), 5))
-                        top  = int(max((centerY - (rectHeight / 2)), 5))
-
-                        if rectHeight + top > frameH:
-                            rectHeight = frameH - top - 5
-
-                        if rectWidth + left > frameW:
-                            rectWidth = frameW - left - 5
-
-                        boxes.append([left, top, rectWidth, rectHeight])
-                        confidences.append(float(confidence))
-                        classIDs.append(classID)
-        
-            idxs = cv2.dnn.NMSBoxes(boxes, confidences, confidenceLevel, self.nmsThreshold)
-
-            for i in idxs:
-                i = i[0]
-                box = boxes[i]
-                # Get the bounding box coordinates
-                x = box[0]
-                y = box[1]
-                w = box[2]
-                h = box[3]
-        
-                # draw a bounding box rectangle and label on the image
-                self.__draw_rect(frame, classIDs[i], confidences[i], x, y, x + w, y + h)
-
-        except:
+        except Exception as e:
             print("Exception during AI Inference")
-
-                
+            print(e)

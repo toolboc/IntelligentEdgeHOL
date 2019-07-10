@@ -22,7 +22,7 @@
           "edgeAgent": {
             "type": "docker",
             "settings": {
-              "image": "mcr.microsoft.com/azureiotedge-agent:1.0",
+              "image": "mcr.microsoft.com/azureiotedge-agent:1.0.8-rc1",
               "createOptions": {}
             }
           },
@@ -31,7 +31,7 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "mcr.microsoft.com/azureiotedge-hub:1.0",
+              "image": "mcr.microsoft.com/azureiotedge-hub:1.0.8-rc1",
               "createOptions": {
                 "HostConfig": {
                   "PortBindings": {
@@ -64,7 +64,65 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.YoloModule}",
-              "createOptions": "{\"Env\":[\"VIDEO_PATH=$CONTAINER_VIDEO_SOURCE\", \"VIDEO_WIDTH=0\", \"VIDEO_HEIGHT=0\", \"FONT_SCALE=0.8\"], \"HostConfig\":{\"PortBindings\":{\"80/tcp\":[{\"HostPort\":\"80\"}]}}}"
+              "createOptions": {
+                "Env": [
+                  "VIDEO_PATH=$CONTAINER_VIDEO_SOURCE",
+                  "VIDEO_WIDTH=0",
+                  "VIDEO_HEIGHT=0",
+                  "FONT_SCALE=0.8"
+                ],
+                "HostConfig": {
+                  "Devices": [
+                    {
+                      "PathOnHost": "/dev/nvhost-ctrl",
+                      "PathInContainer":"/dev/nvhost-ctrl",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/nvhost-ctrl-gpu",
+                      "PathInContainer":"dev/nvhost-ctrl-gpu",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/nvhost-prof-gpu",
+                      "PathInContainer":"dev/nvhost-prof-gpu ",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/nvmap",
+                      "PathInContainer":"/dev/nvmap",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "dev/nvhost-gpu",
+                      "PathInContainer":"dev/nvhost-gpu",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/nvhost-as-gpu",
+                      "PathInContainer":"/dev/nvhost-as-gpu",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/nvhost-vic",
+                      "PathInContainer":"/dev/nvhost-vic",
+                      "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/tegra_dc_ctrl",
+                      "PathInContainer":"/dev/tegra_dc_ctrl",
+                      "CgroupPermissions":"rwm"                      
+                    }
+                  ],
+                  "PortBindings": {
+                    "80/tcp": [
+                      {
+                        "HostPort": "80"
+                      }
+                    ]
+                  }
+                }
+              }
             }
           }
         }
