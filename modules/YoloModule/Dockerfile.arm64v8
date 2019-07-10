@@ -1,0 +1,54 @@
+FROM balenalib/jetson-tx2-ubuntu:bionic as iot-sdk-python-builder
+
+# Update image
+SHELL ["/bin/bash", "-c"]
+
+RUN apt-get update && apt-get install -y cmake build-essential curl libcurl4-openssl-dev \
+    libssl-dev uuid-dev apt-utils python python-pip python-virtualenv python3 python3-pip python3-virtualenv \
+    libboost-python-dev pkg-config valgrind sudo git software-properties-common && \
+    rm -rf /var/lib/apt/lists/* 
+
+WORKDIR /usr/sdk
+
+RUN python -m virtualenv --python=python3 env3
+RUN source env3/bin/activate && pip install --upgrade pip && pip install -U setuptools wheel
+
+RUN git clone --recursive --depth=1 https://github.com/Azure/azure-iot-sdk-python.git src
+
+# Build for Python 3
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN source env3/bin/activate && ./src/build_all/linux/setup.sh --python-version 3.6
+RUN source env3/bin/activate && ./src/build_all/linux/release.sh --build-python 3.6
+
+# Build for Python 2
+#RUN pip install --upgrade pip==10.0.1 && python -m pip install -U setuptools wheel
+#RUN ./src/build_all/linux/setup.sh
+#RUN ./src/build_all/linux/release.sh
+
+FROM toolboc/jetson-nano-l4t-cuda-cudnn-opencv-darknet
+
+WORKDIR /app
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libcurl4-openssl-dev python3-pip libboost-python-dev libgtk2.0-dev python3-setuptools python3-numpy python3-opencv python-opencv && \
+    rm -rf /var/lib/apt/lists/* 
+
+COPY --from=iot-sdk-python-builder /usr/sdk/src/device/doc/package-readme.md /src/device/doc/package-readme.md
+COPY --from=iot-sdk-python-builder /usr/sdk/src/build_all/linux/release_device_client /src/build_all/linux/release_device_client 
+RUN cd /src/build_all/linux/release_device_client && python3 setup.py install
+COPY --from=iot-sdk-python-builder /usr/sdk/src/device/samples/iothub_client.so /app/iothub_client.so
+
+RUN cp /usr/local/src/darknet/libdarknet.so /app/libdarknet.so
+
+COPY /build/requirements.txt ./
+RUN pip3 install --upgrade pip
+RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install tornado==4.5.3 trollius && \
+    pip3 install -U youtube-dl
+
+ADD /app/ .
+
+# Expose the port
+EXPOSE 80
+
+ENTRYPOINT [ "python3", "-u", "./main.py" ]
