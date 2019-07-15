@@ -4,11 +4,20 @@ from __future__ import absolute_import
 
 from darknet import darknet
 
+import AppState
+
+import iothub_client
+# pylint: disable=E0611
+# Disabling linting that is not supported by Pylint for C extensions such as iothub_client. See issue https://github.com/PyCQA/pylint/issues/1955 
+from iothub_client import (IoTHubMessage)
+
 import cv2
 #import cv2.cv as cv
 import numpy as np
 import time
 import os
+import json
+from datetime import datetime
 
 yolocfg  = r'yolo/yolov3-tiny.cfg'
 yoloweight = r'yolo/yolov3-tiny.weights'
@@ -37,6 +46,7 @@ class YoloInference(object):
         self.net = None
         self.rgb = True
         self.verbose = False
+        self.lastMessageSentTime = datetime.now()
 
         # Read class names from text file
         print("   - Setting Classes")
@@ -80,6 +90,8 @@ class YoloInference(object):
 
             detections = darknet.detect(darknet.netMain, darknet.metaMain, frame, confidenceLevel)
 
+            countsByClassId = {};
+
             for detection in detections:
               
                 classLabel = detection[0]
@@ -88,8 +100,10 @@ class YoloInference(object):
 
                 if confidence > confidenceLevel:
 
-                    if self.verbose:
-                        print( "Class Label : %s Confidence %f" % (classLabel, confidence))
+                    if classID not in countsByClassId:
+                        countsByClassId[classID] = 1
+                    else:
+                        countsByClassId[classID] = countsByClassId[classID] + 1
 
                     bounds = detection[2]
                     
@@ -100,6 +114,12 @@ class YoloInference(object):
                     yCoord = int(bounds[1] - bounds[3]/2)
 
                     self.__draw_rect(frame, classID, confidence, xCoord, yCoord, xCoord + xEntent, yCoord + yExtent)
+
+            if len(countsByClassId) > 0 and (datetime.now() - self.lastMessageSentTime).total_seconds() >= 1 :
+                strMessage = json.dumps(countsByClassId)
+                message = IoTHubMessage(strMessage)
+                AppState.HubManager.send_event_to_output("output1", message, 0)
+                self.lastMessageSentTime=datetime.now()
 
         except Exception as e:
             print("Exception during AI Inference")

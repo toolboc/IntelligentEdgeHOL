@@ -132,18 +132,11 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
+          "YoloModuleToIoTHub": "FROM /messages/modules/YoloModule/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
         }
-      }
-    },
-    "YoloModule" : {
-      "properties.desired": {
-        "ConfidenceLevel" : "0.3",
-        "VerboseMode" : 0,
-        "Inference" : 1,
-        "VideoSource" : ""
       }
     }
   }
