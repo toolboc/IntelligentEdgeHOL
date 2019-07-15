@@ -18,6 +18,8 @@ from iothub_client import (IoTHubModuleClient, IoTHubClientError, IoTHubError,
 import VideoCapture
 from VideoCapture import VideoCapture
 
+import AppState
+
 def send_to_Hub_callback(strMessage):
     message = IoTHubMessage(bytearray(strMessage, 'utf8'))
     print("\r\nsend_to_Hub_callback()")
@@ -147,6 +149,7 @@ def main(
 
             try:
                 hubManager = HubManager(10000, IoTHubTransportProvider.MQTT, False)
+                AppState.init(hubManager)
             except IoTHubError as iothub_error:
                 print("Unexpected error %s from IoTHub" % iothub_error )
                 return
