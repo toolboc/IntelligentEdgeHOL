@@ -332,7 +332,7 @@ A new window name `azure-iot-module-twin.json` should open.
 
 Edit `desired -> VideoSource` with the URL of another video.
 
-Right click anywhere in the Editor winow, then select `Update Module Twin`
+Right click anywhere in the Editor window, then select `Update Module Twin`
 
  It may take some time depending on the size of video, but new video should start playing in your browser.
 
