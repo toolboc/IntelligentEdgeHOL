@@ -8,6 +8,7 @@ import requests
 import time
 import json
 import os
+import signal
 
 import ImageServer
 from ImageServer import ImageServer
@@ -188,6 +189,9 @@ class VideoCapture(object):
     def get_display_frame(self):
         return self.displayFrame
 
+    def videoStreamReadTimeoutHandler(signum, frame):
+        raise Exception("VideoStream Read Timeout") 
+
     def start(self):
         while True:
             if self.captureInProgress:
@@ -243,12 +247,15 @@ class VideoCapture(object):
 
         if cameraFPS == 0:
             print("Error : Could not get FPS")
+            raise Exception("Unable to acquire FPS for Video Source")
             return
 
         print("Frame rate (FPS)     : " + str(cameraFPS))
 
         currentFPS = cameraFPS
         perFrameTimeInMs = 1000 / cameraFPS
+
+        signal.signal(signal.SIGALRM, self.videoStreamReadTimeoutHandler)
 
         while True:
 
@@ -266,13 +273,17 @@ class VideoCapture(object):
             try:
                 # Read a frame
                 if self.useStream:
+                    # Timeout after 10s
+                    signal.alarm(10)
                     frame = self.vStream.read()
+                    signal.alarm(0)
                 else:
                     frame = self.vCapture.read()[1]
-            except:
+            except Exception as e:
                 print("ERROR : Exception during capturing")
+                raise(e)
 
-            # Rezie frame if flagged
+            # Resize frame if flagged
             if needResizeFrame:
                 frame = cv2.resize(frame, (self.videoW, self.videoH))
 
