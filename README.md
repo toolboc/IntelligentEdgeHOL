@@ -111,6 +111,12 @@ Development Environment:
 
 # Installing IoT Edge onto the Jetson Nano Device
 
+Before we install IoT Edge, we need to install a few utitilies onto the Nvidia Jetson Nano device with:
+
+```
+apt-get install -y curl nano python-pip3
+```
+
 ARM64 builds of IoT Edge are currently being offered in preview and will eventually go into General Availability.  We will make use of the ARM64 builds to ensure that we get the best performance out of our IoT Edge solution.
 
 These builds are provided starting in the [1.0.8-rc1 release tag](https://github.com/Azure/azure-iotedge/releases/tag/1.0.8-rc1).  To install the 1.0.8-rc1 release of IoT Edge, run the following from a terminal on your Nvidia Jetson device:
@@ -255,7 +261,7 @@ Example :
  
  http://`<ipAddressOfJetsonNanoDevice>`
 
-You should be able to see a video stream
+You should see an unaltered video stream depending on the video source you configured. In the next section, we will enable the object detection feature by modifying a value in the associated module twin.  
 
 ![](https://pbs.twimg.com/media/D_ANYjHWwAECM-L.jpg)
 
@@ -307,12 +313,26 @@ WARNING: Assuming --restrict-filenames since file system encoding cannot encode 
 Download Complete
 ```
 
+# Enable Object Detection by modifying the Module Twin
+
+While in VSCode, select the Azure IoT Hub Devices window, find your IoT Edge device and expand the modules sections until you see the `YoloModule` entry.
+
+Right click on `YoloModule` and select `Edit Module Twin`
+
+A new window name `azure-iot-module-twin.json` should open.
+
+Set the value of `properties -> desired -> Inference` to 1
+
+Right click anywhere in the Editor window, then select `Update Module Twin`
+
+ After a few moments the object detection feature will become enabled in the module.  Now, if you reconnect to the video stream connected to in the previous step, you should see a bounding box and tags appearing around any detected objects in the video stream.
+
 # Monitor the GPU utilization stats
 
-On the Jetson device, you can monitor the GPU usage by instal jetson-stats with:
+On the Jetson device, you can monitor the GPU utilization by installing `jetson-stats` with:
 
 ```
-sudo -H pip install jetson-stats
+sudo -H pip3 install jetson-stats
 ```
 
 Once, installed run:
@@ -320,7 +340,6 @@ Once, installed run:
 ```
 sudo jtop
 ```
-
 
 # Update the Video Source by modifying the Module Twin
 
@@ -330,11 +349,11 @@ Right click on `YoloModule` and select `Edit Module Twin`
 
 A new window name `azure-iot-module-twin.json` should open.
 
-Edit `desired -> VideoSource` with the URL of another video.
+Edit `properties -> desired -> VideoSource` with the URL of another video.
 
 Right click anywhere in the Editor window, then select `Update Module Twin`
 
- It may take some time depending on the size of video, but new video should start playing in your browser.
+ It may take some time depending on the size of video, but the new video should begin playing in your browser.
 
 # Controlling/Managing the Module
 You can change the following settings via the  Module Twin after the container has started running.
