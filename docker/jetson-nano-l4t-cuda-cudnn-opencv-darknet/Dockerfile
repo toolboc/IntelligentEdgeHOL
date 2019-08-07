@@ -12,10 +12,7 @@ RUN git clone https://github.com/AlexeyAB/darknet.git && \
     sed -i 's/CUDNN_HALF=0/CUDNN_HALF=1/g' Makefile && \
     sed -i 's/OPENCV=0/OPENCV=1/g' Makefile && \
     sed -i 's/LIBSO=0/LIBSO=1/g' Makefile && \
+    sed -i '/arch=compute_53/s/^#.//g' Makefile && \
     make
 
 RUN cd darknet && LD_LIBRARY_PATH=./:$LD_LIBRARY_PATH 
-
-RUN cd darknet && \
-    curl https://pjreddie.com/media/files/yolov3-tiny.weights -o yolov3-tiny.weights
-    
