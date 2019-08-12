@@ -4,7 +4,7 @@
 
 The IntelligentEdgeHOL walks through the process of deploying an IoT Edge module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
 
-The module ships as a fully self-contained docker image totalling around 5.5GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
+The module ships as a fully self-contained docker image totalling around 3GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
 
 Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github.com/AlexeyAB/darknet) which supports detection of the following:
 
@@ -114,7 +114,7 @@ Development Environment:
 Before we install IoT Edge, we need to install a few utitilies onto the Nvidia Jetson Nano device with:
 
 ```
-apt-get install -y curl nano python-pip3
+apt-get install -y curl nano python3-pip
 ```
 
 ARM64 builds of IoT Edge are currently being offered in preview and will eventually go into General Availability.  We will make use of the ARM64 builds to ensure that we get the best performance out of our IoT Edge solution.
@@ -201,7 +201,7 @@ In VS Code, navigate to the `.env` file and modify the following value:
 
  For an rtsp stream, provide a link to the rtsp stream in the format, rtsp://
 
- If you have an attached USB web cam, provide the V4L device path, ex: /dev/video0 and open the included `deployment.template.json` and look for:
+ If you have an attached USB web cam, provide the V4L device path (this can be obtained from the terminal with `ls -ltrh /dev/video*`, ex: /dev/video0 and open the included `deployment.template.json` and look for:
 
  ```
 {
@@ -227,7 +227,7 @@ Then, add the following (including the comma), directly beneath it
 
 Create a deployment for the Jetson Nano device by right-clicking `deployment.template.json` and select `Generate IoT Edge Deployment Manifest`.  This will create a file under the config folder named `deployment.arm32v7.json`, right-click that file and select `Create Deployment for Single Device` and select the device you created when provisioning the IoT Edge Runtime on the Jetson Nano Device.  
 
-It may take a few minutes for the module to begin running on the device as it needs to pull an approximately 5.5GB docker image.  You can check the progress on the Nvidia Jetson device by monitoring the iotedge agent logs with:
+It may take a few minutes for the module to begin running on the device as it needs to pull an approximately 3GB docker image.  You can check the progress on the Nvidia Jetson device by monitoring the iotedge agent logs with:
 
 ```
 sudo docker logs -f edgeAgent
