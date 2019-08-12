@@ -138,6 +138,14 @@
           "timeToLiveSecs": 7200
         }
       }
+    },
+    "YoloModule": {
+      "properties.desired": {
+        "ConfidenceLevel": "0.3",
+        "VerboseMode": 0,
+        "Inference": 1,
+        "VideoSource": ""
+      }
     }
   }
 }
