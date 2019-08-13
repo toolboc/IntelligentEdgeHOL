@@ -118,6 +118,7 @@ class YoloInference(object):
             if len(countsByClassId) > 0 and (datetime.now() - self.lastMessageSentTime).total_seconds() >= 1 :
                 strMessage = json.dumps(countsByClassId)
                 message = IoTHubMessage(strMessage)
+                print(strMessage)
                 AppState.HubManager.send_event_to_output("output1", message, 0)
                 self.lastMessageSentTime=datetime.now()
 
