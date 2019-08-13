@@ -4,7 +4,7 @@
 
 The IntelligentEdgeHOL walks through the process of deploying an IoT Edge module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
 
-The module ships as a fully self-contained docker image totalling around 3GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
+The module ships as a fully self-contained docker image totalling around 5.5GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
 
 Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github.com/AlexeyAB/darknet) which supports detection of the following:
 
@@ -119,20 +119,28 @@ apt-get install -y curl nano python3-pip
 
 ARM64 builds of IoT Edge are currently being offered in preview and will eventually go into General Availability.  We will make use of the ARM64 builds to ensure that we get the best performance out of our IoT Edge solution.
 
-These builds are provided starting in the [1.0.8-rc1 release tag](https://github.com/Azure/azure-iotedge/releases/tag/1.0.8-rc1).  To install the 1.0.8-rc1 release of IoT Edge, run the following from a terminal on your Nvidia Jetson device:
+These builds are provided starting in the [1.0.8 release tag](https://github.com/Azure/azure-iotedge/releases/tag/1.0.8).  To install the 1.0.8 release of IoT Edge, run the following from a terminal on your Nvidia Jetson device:
 
 ```
 # You can copy the entire text from this code block and 
 # paste in terminal. The comment lines will be ignored.
 
-# Download and install the standard libiothsm implementation
-curl -L https://github.com/Azure/azure-iotedge/releases/download/1.0.8-rc1/libiothsm-std_1.0.8.rc1-1_arm64.deb -o libiothsm-std.deb && sudo dpkg -i ./libiothsm-std.deb
+# Install the IoT Edge repository configuration
+curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list > ./microsoft-prod.list
 
-# Download and install the IoT Edge Security Daemon
-curl -L https://github.com/Azure/azure-iotedge/releases/download/1.0.8-rc1/iotedge_1.0.8.rc1-1_arm64.deb -o iotedge.deb && sudo dpkg -i ./iotedge.deb
+# Copy the generated list
+sudo cp ./microsoft-prod.list /etc/apt/sources.list.d/
 
-# Run apt-get fix
-sudo apt-get install -f
+# Install the Microsoft GPG public key
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
+
+# Perform apt update
+sudo apt-get update
+
+# Install IoT Edge and the Security Daemon
+sudo apt-get install iotedge
+
 ```
 
 # Provisioning the IoT Edge Runtime on the Jetson Nano Device
@@ -158,18 +166,6 @@ provisioning:
 #   scope_id: "{scope_id}"
 #   registration_id: "{registration_id}"
 
-```
-
-You will also want to configure the default IoT Edge agent configuration to pull the 1.0.8-rc1 version of the agent.  While in the configuration file, scroll down to the agent section and update the image value to the following:
-
-```
-agent:
-  name: "edgeAgent"
-  type: "docker"
-  env: {}
-  config:
-    image: "mcr.microsoft.com/azureiotedge-agent:1.0.8-rc1"
-    auth: {}
 ```
 
 You can check the status of the IoT Edge Daemon using:
@@ -227,7 +223,7 @@ Then, add the following (including the comma), directly beneath it
 
 Create a deployment for the Jetson Nano device by right-clicking `deployment.template.json` and select `Generate IoT Edge Deployment Manifest`.  This will create a file under the config folder named `deployment.arm32v7.json`, right-click that file and select `Create Deployment for Single Device` and select the device you created when provisioning the IoT Edge Runtime on the Jetson Nano Device.  
 
-It may take a few minutes for the module to begin running on the device as it needs to pull an approximately 3GB docker image.  You can check the progress on the Nvidia Jetson device by monitoring the iotedge agent logs with:
+It may take a few minutes for the module to begin running on the device as it needs to pull an approximately 5.5GB docker image.  You can check the progress on the Nvidia Jetson device by monitoring the iotedge agent logs with:
 
 ```
 sudo docker logs -f edgeAgent
