@@ -70,7 +70,8 @@ class VideoCapture(object):
 
     def __IsRtsp(self, videoPath):
         try:
-            return 'rtsp:' in videoPath.lower()
+            if 'rtsp:' in videoPath.lower() or '/api/holographic/stream' in videoPath.lower():
+                return True
         except ValueError:
             return False
 
