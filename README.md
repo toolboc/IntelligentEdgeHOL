@@ -203,6 +203,9 @@ In VS Code, navigate to the `.env` file and modify the following value:
 
  For an rtsp stream, provide a link to the rtsp stream in the format, rtsp://
 
+ To use a HoloLens video stream, see this [article](https://blog.kloud.com.au/2016/09/01/streaming-hololens-video-to-your-web-browser/) to enable a user account in the HoloLens Web Portal, once this is configured,  provide the url to the HoloLens video streaming endpoint, ex:
+ https://[USERNAME]:[PASSWORD]@[HOLOLENS_IP]/api/holographic/stream/live_high.mp4?holo=true&pv=true&mic=true&loopback=true
+
  If you have an attached USB web cam, provide the V4L device path (this can be obtained from the terminal with `ls -ltrh /dev/video*`, ex: /dev/video0 and open the included `deployment.template.json` and look for:
 
  ```
