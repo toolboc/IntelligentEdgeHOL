@@ -91,13 +91,19 @@ hair drier
 toothbrush
 ```
 
+# Hands-On Lab Materials 
+
+* [Presentation Deck](http://aka.ms/intelligentedgeholdeck)
+* [Presentation Video](http://youtube.com)
+
 # Getting Started
 This lab requires that you have the following:
 
 Hardware:
 * [Nvidia Jetson Nano Device](https://amzn.to/2WFE5zF)
-* A cooling fan installed on or pointed at the Nvidia Jetson Nano device 
-* USB Webcam (Optional)
+* A [cooling fan](https://amzn.to/2ZI2ki9) installed on or pointed at the Nvidia Jetson Nano device 
+* USB Webcam (Optional) 
+  - Note: The power consumption will require that your device is configured to use a [5V/4A barrel adapter](https://amzn.to/32DFsTq) as mentioned [here](https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/) with an [Open-CV compatible camera](https://web.archive.org/web/20120815172655/http://opencv.willowgarage.com/wiki/Welcome/OS/).
 
 Development Environment:
 - [Visual Studio Code (VSCode)](https://code.visualstudio.com/Download?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo)
