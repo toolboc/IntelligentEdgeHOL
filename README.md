@@ -94,7 +94,9 @@ toothbrush
 # Hands-On Lab Materials 
 
 * [Presentation Deck](http://aka.ms/intelligentedgeholdeck)
-* [Presentation Video](http://youtube.com)
+* [Presentation Video](https://1drv.ms/v/s!AlKHLaNiha1UlvxB-wowhJPAtORfRA?e=g4Cqon)
+  - Note: If you want to view a full walkthrough of this lab, skip to 38:00
+
 
 # Getting Started
 This lab requires that you have the following:
