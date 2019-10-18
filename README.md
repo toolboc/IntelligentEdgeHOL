@@ -18,7 +18,7 @@ Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github
 # Hands-On Lab Materials 
 
 * [Presentation Deck](http://aka.ms/intelligentedgeholdeck)
-* [Presentation Video](https://1drv.ms/v/s!AlKHLaNiha1UlvxB-wowhJPAtORfRA?e=g4Cqon)
+* [Presentation Video](http:aka.ms/intelligentedgeholvideo)
   - Note: If you want to view a full walkthrough of this lab, skip to 38:00
 
 
@@ -43,7 +43,7 @@ Development Environment:
 
 # Installing IoT Edge onto the Jetson Nano Device
 
-Before we install IoT Edge, we need to install a few utitilies onto the Nvidia Jetson Nano device with:
+Before we install IoT Edge, we need to install a few utilities onto the Nvidia Jetson Nano device with:
 
 ```
 sudo apt-get install -y curl nano python3-pip
