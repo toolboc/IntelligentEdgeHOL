@@ -2,7 +2,7 @@
 
 ![](https://pbs.twimg.com/media/D_ANZnbWsAA4EVK.jpg)
 
-The IntelligentEdgeHOL walks through the process of deploying an [IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/about-iot-edge?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo) module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
+The IntelligentEdgeHOL walks through the process of deploying an [IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/about-iot-edge?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo) module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, Hololens Mixed Reality Capture, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
 
 The module ships as a fully self-contained docker image totalling around 5.5GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
 
@@ -11,6 +11,9 @@ Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github
 
 *person, bicycle, car, motorbike, aeroplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, cat, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, backpack, umbrella, handbag, tie, suitcase, frisbee, skis, snowboard, sports ball, kite, baseball bat, baseball glove,skateboard, surfboard, tennis racket, bottle, wine glass, cup, fork, knife, spoon, bowl, banana, apple, sandwich, orange, broccoli, carrot, hot dog, pizza, donut, cake, chair, sofa, pottedplant, bed, diningtable, toilet, tv monitor, laptop, mouse, remote, keyboard, cell phone, microwave, oventoaster, sink, refrigerator, book, clock, vase, scissors, teddy bear, hair drier, toothbrush*
 
+# Demos
+
+* [Yolo Object Detection with Nvidia Jetson and Hololens](https://www.youtube.com/watch?v=zxGcUmcl1qo&feature=youtu.be)
 
 # Hands-On Lab Materials 
 
