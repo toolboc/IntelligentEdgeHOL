@@ -13,7 +13,7 @@ WORKDIR /usr/sdk
 RUN python -m virtualenv --python=python3 env3
 RUN source env3/bin/activate && pip install --upgrade pip && pip install -U setuptools wheel
 
-RUN git clone --recursive --depth=1 https://github.com/Azure/azure-iot-sdk-python.git src
+RUN git clone --recursive --branch release_2019_01_03 --depth=1 https://github.com/Azure/azure-iot-sdk-python.git src
 
 # Build for Python 3
 RUN add-apt-repository ppa:deadsnakes/ppa
@@ -25,7 +25,7 @@ RUN source env3/bin/activate && ./src/build_all/linux/release.sh --build-python 
 #RUN ./src/build_all/linux/setup.sh
 #RUN ./src/build_all/linux/release.sh
 
-FROM toolboc/jetson-nano-l4t-cuda-cudnn-opencv-darknet
+FROM jetson-jax-l4t-cuda-cudnn-opencv-darknet
 
 WORKDIR /app
 

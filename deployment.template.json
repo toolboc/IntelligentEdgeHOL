@@ -107,11 +107,6 @@
                       "PathOnHost": "/dev/nvhost-vic",
                       "PathInContainer":"/dev/nvhost-vic",
                       "CgroupPermissions":"rwm"
-                    },
-                    {
-                      "PathOnHost": "/dev/tegra_dc_ctrl",
-                      "PathInContainer":"/dev/tegra_dc_ctrl",
-                      "CgroupPermissions":"rwm"                      
                     }
                   ],
                   "PortBindings": {
@@ -137,6 +132,14 @@
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
         }
+      }
+    },
+    "YoloModule" : {
+      "properties.desired": {
+        "ConfidenceLevel" : "0.3",
+        "VerboseMode" : 0,
+        "Inference" : 1,
+        "VideoSource" : ""
       }
     }
   }

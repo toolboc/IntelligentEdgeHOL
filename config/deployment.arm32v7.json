@@ -42,9 +42,9 @@
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "toolboc/yolomodule:latest-arm32v7",
-              "createOptions": "{\"Env\":[\"VIDEO_PATH=https://www.youtube.com/watch?v=YZkp0qBBmpw\",\"VIDEO_WIDTH=0\",\"VIDEO_HEIGHT=0\",\"FONT_SCALE=0.8\"],\"HostConfig\":{\"Devices\":[{\"PathOnHost\":\"/dev/nvhost-ctrl\",\"PathInContainer\":\"/dev/nvhost-ctrl\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-ctrl-gpu\",\"PathInContainer\":\"dev/nvhost-ctrl-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-prof-gpu\",\"PathInContainer\":\"dev/nvhost-prof-gpu \",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvmap\",\"PathInContainer\":\"/dev/nvmap\",\"Cgroup",
-              "createOptions01": "Permissions\":\"rwm\"},{\"PathOnHost\":\"dev/nvhost-gpu\",\"PathInContainer\":\"dev/nvhost-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-as-gpu\",\"PathInContainer\":\"/dev/nvhost-as-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-vic\",\"PathInContainer\":\"/dev/nvhost-vic\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/tegra_dc_ctrl\",\"PathInContainer\":\"/dev/tegra_dc_ctrl\",\"CgroupPermissions\":\"rwm\"}],\"PortBindings\":{\"80/tcp\":[{\"HostPort\":\"80\"}]}}}"
+              "image": "toolboc/yolomodule:xavier-arm32v7",
+              "createOptions": "{\"Env\":[\"VIDEO_PATH=https://www.youtube.com/watch?v=XJ735krOiPo\",\"VIDEO_WIDTH=0\",\"VIDEO_HEIGHT=0\",\"FONT_SCALE=0.8\"],\"HostConfig\":{\"Devices\":[{\"PathOnHost\":\"/dev/nvhost-ctrl\",\"PathInContainer\":\"/dev/nvhost-ctrl\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-ctrl-gpu\",\"PathInContainer\":\"dev/nvhost-ctrl-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-prof-gpu\",\"PathInContainer\":\"dev/nvhost-prof-gpu \",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvmap\",\"PathInContainer\":\"/dev/nvmap\",\"Cgroup",
+              "createOptions01": "Permissions\":\"rwm\"},{\"PathOnHost\":\"dev/nvhost-gpu\",\"PathInContainer\":\"dev/nvhost-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-as-gpu\",\"PathInContainer\":\"/dev/nvhost-as-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-vic\",\"PathInContainer\":\"/dev/nvhost-vic\",\"CgroupPermissions\":\"rwm\"}],\"PortBindings\":{\"80/tcp\":[{\"HostPort\":\"80\"}]}}}"
             }
           }
         }
@@ -59,6 +59,14 @@
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
         }
+      }
+    },
+    "YoloModule": {
+      "properties.desired": {
+        "ConfidenceLevel": "0.3",
+        "VerboseMode": 0,
+        "Inference": 1,
+        "VideoSource": ""
       }
     }
   }

@@ -1,1 +1,2 @@
 .env
+modules/YoloModule/app/yolo/yolov3.weights
