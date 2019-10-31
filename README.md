@@ -18,7 +18,7 @@ Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github
 # Hands-On Lab Materials 
 
 * [Presentation Deck](http://aka.ms/intelligentedgeholdeck)
-* [Presentation Video](http:aka.ms/intelligentedgeholvideo)
+* [Presentation Video](http://aka.ms/intelligentedgeholvideo)
   - Note: If you want to view a full walkthrough of this lab, skip to 38:00
 
 
