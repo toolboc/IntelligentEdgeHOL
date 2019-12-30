@@ -14,6 +14,7 @@ Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github
 # Demos
 
 * [Yolo Object Detection with Nvidia Jetson and Hololens](https://www.youtube.com/watch?v=zxGcUmcl1qo&feature=youtu.be)
+* [The Intelligent Edge on the IoT Show @ Microsoft Ignite 2019](https://channel9.msdn.com/Shows/Internet-of-Things-Show/The-Intelligent-Edge-by-Microsoft)
 
 # Hands-On Lab Materials 
 
