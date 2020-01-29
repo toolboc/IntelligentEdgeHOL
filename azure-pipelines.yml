@@ -1,0 +1,23 @@
+# IoT Edge CI Build Definition
+# Build your IoT Edge Modules in Azure DevOps
+# https://aka.ms/yaml
+
+pool:
+  name: Jetson-Nano
+  
+steps:
+- task: CopyFiles@2
+  displayName: 'Copy unaltered source to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: '/**/*.*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: AzureIoTEdge@2
+  displayName: 'Azure IoT Edge - Build module images'
+  inputs:
+    deploymentid: 'azuredevops-deployment'
+    templateFilePath: deployment.template.json
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
