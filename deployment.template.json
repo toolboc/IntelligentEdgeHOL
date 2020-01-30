@@ -8,14 +8,7 @@
           "type": "docker",
           "settings": {
             "minDockerVersion": "v1.25",
-            "loggingOptions": "",
-            "registryCredentials": {
-              "bootcampfy19acr": {
-                "username": "$CONTAINER_REGISTRY_USERNAME",
-                "password": "$CONTAINER_REGISTRY_PASSWORD",
-                "address": "$CONTAINER_REGISTRY_URL"
-              }
-            }
+            "loggingOptions": ""
           }
         },
         "systemModules": {
