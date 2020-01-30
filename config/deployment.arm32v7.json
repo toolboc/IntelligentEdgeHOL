@@ -7,14 +7,7 @@
           "type": "docker",
           "settings": {
             "minDockerVersion": "v1.25",
-            "loggingOptions": "",
-            "registryCredentials": {
-              "bootcampfy19acr": {
-                "username": "$CONTAINER_REGISTRY_USERNAME",
-                "password": "$CONTAINER_REGISTRY_PASSWORD",
-                "address": "toolboc"
-              }
-            }
+            "loggingOptions": ""
           }
         },
         "systemModules": {
@@ -44,7 +37,7 @@
             "settings": {
               "image": "toolboc/yolomodule:xavier-arm32v7",
               "createOptions": "{\"Env\":[\"VIDEO_PATH=/dev/video0\",\"VIDEO_WIDTH=0\",\"VIDEO_HEIGHT=0\",\"FONT_SCALE=0.8\"],\"HostConfig\":{\"Devices\":[{\"PathOnHost\":\"/dev/nvhost-ctrl\",\"PathInContainer\":\"/dev/nvhost-ctrl\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-ctrl-gpu\",\"PathInContainer\":\"dev/nvhost-ctrl-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-prof-gpu\",\"PathInContainer\":\"dev/nvhost-prof-gpu \",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvmap\",\"PathInContainer\":\"/dev/nvmap\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost",
-              "createOptions01": "\":\"dev/nvhost-gpu\",\"PathInContainer\":\"dev/nvhost-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-as-gpu\",\"PathInContainer\":\"/dev/nvhost-as-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-vic\",\"PathInContainer\":\"/dev/nvhost-vic\",\"CgroupPermissions\":\"rwm\"}],\"PortBindings\":{\"80/tcp\":[{\"HostPort\":\"80\"}]}}}"
+              "createOptions01": "\":\"dev/nvhost-gpu\",\"PathInContainer\":\"dev/nvhost-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-as-gpu\",\"PathInContainer\":\"/dev/nvhost-as-gpu\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/nvhost-vic\",\"PathInContainer\":\"/dev/nvhost-vic\",\"CgroupPermissions\":\"rwm\"},{\"PathOnHost\":\"/dev/video0\",\"PathInContainer\":\"/dev/video0\",\"CgroupPermissions\":\"rwm\"}],\"PortBindings\":{\"80/tcp\":[{\"HostPort\":\"80\"}]}}}"
             }
           }
         }
