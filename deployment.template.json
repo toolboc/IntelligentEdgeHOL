@@ -107,6 +107,11 @@
                       "PathOnHost": "/dev/nvhost-vic",
                       "PathInContainer":"/dev/nvhost-vic",
                       "CgroupPermissions":"rwm"
+                    },
+                    {
+                      "PathOnHost": "/dev/video0",
+                      "PathInContainer":"/dev/video0",
+                      "CgroupPermissions":"rwm"
                     }
                   ],
                   "PortBindings": {
