@@ -46,6 +46,8 @@ RUN pip3 install --no-cache-dir -r requirements.txt
 RUN pip3 install tornado==4.5.3 trollius && \
     pip3 install -U youtube-dl
 
+RUN mkdir yolo && curl https://pjreddie.com/media/files/yolov3.weights -o ./yolo/yolov3.weights
+
 ADD /app/ .
 
 # Expose the port
