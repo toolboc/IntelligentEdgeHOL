@@ -2,7 +2,7 @@
 
 ![](https://pbs.twimg.com/media/D_ANZnbWsAA4EVK.jpg)
 
-The IntelligentEdgeHOL walks through the process of deploying an [IoT Edge](https://docs.microsoft.com/en-us/azure/iot-edge/about-iot-edge?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo) module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, Hololens Mixed Reality Capture, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
+The IntelligentEdgeHOL walks through the process of deploying an [IoT Edge](https://docs.microsoft.com/azure/iot-edge/about-iot-edge?WT.mc_id=iot-0000-pdecarlo) module to an Nvidia Jetson Nano device to allow for detection of objects in YouTube videos, RTSP streams, Hololens Mixed Reality Capture, or an attached web cam. It achieves performance of around 10 frames per second for most video data.    
 
 The module ships as a fully self-contained docker image totalling around 5.5GB.  This image contains all necessary dependencies including the [Nvidia Linux for Tegra Drivers](https://developer.nvidia.com/embedded/linux-tegra) for Jetson Nano, [CUDA Toolkit](https://developer.nvidia.com/cuda-toolkit), [NVIDIA CUDA Deep Neural Network library (CUDNN)](https://developer.nvidia.com/cudnn), [OpenCV](https://github.com/opencv/opencv), and [Darknet](https://github.com/AlexeyAB/darknet). For details on how the base images are built, see the included `docker` folder.
 
@@ -14,7 +14,7 @@ Object Detection is accomplished using YOLOv3-tiny with [Darknet](https://github
 # Demos
 
 * [Yolo Object Detection with Nvidia Jetson and Hololens](https://www.youtube.com/watch?v=zxGcUmcl1qo&feature=youtu.be)
-* [The Intelligent Edge on the IoT Show @ Microsoft Ignite 2019](https://channel9.msdn.com/Shows/Internet-of-Things-Show/The-Intelligent-Edge-by-Microsoft)
+* [The Intelligent Edge on the IoT Show @ Microsoft Ignite 2019](https://channel9.msdn.com/Shows/Internet-of-Things-Show/The-Intelligent-Edge-by-Microsoft?WT.mc_id=iot-0000-pdecarlo)
 
 # Hands-On Lab Materials 
 
@@ -33,12 +33,12 @@ Hardware:
   - Note: The power consumption will require that your device is configured to use a [5V/4A barrel adapter](https://amzn.to/32DFsTq) as mentioned [here](https://www.jetsonhacks.com/2019/04/10/jetson-nano-use-more-power/) with an [Open-CV compatible camera](https://web.archive.org/web/20120815172655/http://opencv.willowgarage.com/wiki/Welcome/OS/).
 
 Development Environment:
-- [Visual Studio Code (VSCode)](https://code.visualstudio.com/Download?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo)
+- [Visual Studio Code (VSCode)](https://code.visualstudio.com/Download?WT.mc_id=iot-0000-pdecarlo)
 - VSCode Extensions
-  - [Azure Account Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account)
-  - [Azure IoT Edge Extension](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-edge)
-  - [Docker Extension](https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker)
-  - [Azure IoT Toolkit Extension](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit)
+  - [Azure Account Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.azure-account&WT.mc_id=iot-0000-pdecarlo)
+  - [Azure IoT Edge Extension](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-edge&WT.mc_id=iot-0000-pdecarlo)
+  - [Docker Extension](https://marketplace.visualstudio.com/items?itemName=PeterJausovec.vscode-docker&WT.mc_id=iot-0000-pdecarlo)
+  - [Azure IoT Toolkit Extension](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-toolkit&WT.mc_id=iot-0000-pdecarlo)
 - Git tool(s)  
   [Git command line](https://git-scm.com/) 
 
@@ -59,13 +59,13 @@ These builds are provided starting in the [1.0.8 release tag](https://github.com
 # paste in terminal. The comment lines will be ignored.
 
 # Install the IoT Edge repository configuration
-curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list > ./microsoft-prod.list
+curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list?WT.mc_id=iot-0000-pdecarlo > ./microsoft-prod.list
 
 # Copy the generated list
 sudo cp ./microsoft-prod.list /etc/apt/sources.list.d/
 
 # Install the Microsoft GPG public key
-curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
+curl https://packages.microsoft.com/keys/microsoft.asc?WT.mc_id=iot-0000-pdecarlo | gpg --dearmor > microsoft.gpg
 sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
 
 # Perform apt update
@@ -78,7 +78,7 @@ sudo apt-get install iotedge
 
 # Provisioning the IoT Edge Runtime on the Jetson Nano Device
 
-To manually provision a device, you need to provide it with a device connection string that you can create by registering a new IoT Edge device in your IoT hub. You can create a new device connection string to accomplish this by following the documentation for [Registering an IoT Edge device in the Azure Portal](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-register-device-portal?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo) or by [Registering an IoT Edge device with the Azure-CLI](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-register-device-cli?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo).
+To manually provision a device, you need to provide it with a device connection string that you can create by registering a new IoT Edge device in your IoT hub. You can create a new device connection string to accomplish this by following the documentation for [Registering an IoT Edge device in the Azure Portal](https://docs.microsoft.com/azure/iot-edge/how-to-register-device-portal?WT.mc_id=iot-0000-pdecarlo) or by [Registering an IoT Edge device with the Azure-CLI](https://docs.microsoft.com/azure/iot-edge/how-to-register-device-cli?WT.mc_id=iot-0000-pdecarlo).
 
 Once you have obtained a connection string, open the configuration file:
 
@@ -294,7 +294,7 @@ Source of video stream/capture source
 
 # Pushing Detected Object Data into Azure Time Series Insights
 
-[Azure Time Series Insights](https://docs.microsoft.com/en-us/azure/time-series-insights/time-series-insights-overview?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo) is built to store, visualize, and query large amounts of time series data, such as that generated by IoT devices. This service can allow us to extract insights that may allow us to build something very interesting. For example, imagine getting an alert when the mail truck is actually at the driveway, counting wildlife species using camera feeds from the National Park Service, or being able to tell that people are in a place that they should not be or counting them over time!
+[Azure Time Series Insights](https://docs.microsoft.com/azure/time-series-insights/time-series-insights-overview?WT.mc_id=iot-0000-pdecarlo) is built to store, visualize, and query large amounts of time series data, such as that generated by IoT devices. This service can allow us to extract insights that may allow us to build something very interesting. For example, imagine getting an alert when the mail truck is actually at the driveway, counting wildlife species using camera feeds from the National Park Service, or being able to tell that people are in a place that they should not be or counting them over time!
 
 To begin, navigate to the resource group that contains the IoT Hub that was created in the previous steps. Add a new Time Series Insights environment into the Resource Group and select `S1` tier for deployment.  Be sure to place the Time Series Insights instance into the same Geographical region which contains your IoT Hub to minimize latency and egress charges.
 
@@ -306,7 +306,7 @@ Next, choose a unique name for your Event Source and configure the Event Source 
 
 Complete the steps to "Review and Create" your deployment of Time Series Insights.  Once the instance has finished deploying, you can navigate to the Time Insights Explorer by viewing the newly deployed Time Series Insights Environment resource, selecting "Overview" and clicking the "Time Series Insights explorer URL".  Once you have clicked the link, you may begin working with your detected object data.
 
-For details on how to explore and query your data in the Azure Time Series Insights explorer, you may consult the [Time Series Insights documentation](https://docs.microsoft.com/en-us/azure/time-series-insights/time-series-insights-explorer?WT.mc_id=github-IntelligentEdgeHOL-pdecarlo).
+For details on how to explore and query your data in the Azure Time Series Insights explorer, you may consult the [Time Series Insights documentation](https://docs.microsoft.com/azure/time-series-insights/time-series-insights-explorer?WT.mc_id=iot-0000-pdecarlo).
 
 ![](https://hackster.imgix.net/uploads/attachments/939873/image_JWWcQszXsh.png?auto=compress)
  
