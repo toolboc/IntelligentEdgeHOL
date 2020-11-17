@@ -59,13 +59,13 @@ These builds are provided starting in the [1.0.8 release tag](https://github.com
 # paste in terminal. The comment lines will be ignored.
 
 # Install the IoT Edge repository configuration
-curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list?WT.mc_id=iot-0000-pdecarlo > ./microsoft-prod.list
+curl https://packages.microsoft.com/config/ubuntu/18.04/multiarch/prod.list > ./microsoft-prod.list
 
 # Copy the generated list
 sudo cp ./microsoft-prod.list /etc/apt/sources.list.d/
 
 # Install the Microsoft GPG public key
-curl https://packages.microsoft.com/keys/microsoft.asc?WT.mc_id=iot-0000-pdecarlo | gpg --dearmor > microsoft.gpg
+curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg
 sudo cp ./microsoft.gpg /etc/apt/trusted.gpg.d/
 
 # Perform apt update
